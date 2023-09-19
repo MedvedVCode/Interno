@@ -8,7 +8,7 @@
 			<p>{{ LATEST_ARTICLE.date }}</p>
 			<router-link :to="{ name: 'blog-details', query: { 'id': LATEST_ARTICLE.id } }">Перейти в статью</router-link>
 		</article>
-		<div>
+		<div class="post-list">
 			<BlogArticle v-for="article in showFirstAtricles" :key="article.id" :article="article" />
 		</div>
 	</div>
@@ -28,18 +28,16 @@ export default {
 			amountArticles: 6,
 			amountButtons: 3,
 			currentPage: 1,
-			articleList:[],
-		}
+		};
 	},
 	computed: {
-		...mapGetters(['LATEST_ARTICLE', 'ARTICLE_BY_AMOUNT']),
+		...mapGetters(['LATEST_ARTICLE', 'ARTICLES_BY_AMOUNT']),
 		showFirstAtricles() {
-			return this.articleList;
+			return this.ARTICLES_BY_AMOUNT(this.amountArticles);
 		},
 	},
-	mounted(){
-		this.atricleList = this.ARTICLES_BY_AMOUNT(this.amountArticles);
-	}
+	mounted() {
+	},
 }
 </script>
 
@@ -49,5 +47,11 @@ export default {
 	margin: 30px;
 	border: 1px solid teal;
 	border-radius: 20px;
+}
+.post-list {
+	margin: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
 }
 </style>

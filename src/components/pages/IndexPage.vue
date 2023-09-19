@@ -29,8 +29,7 @@ export default {
 <style lang="scss" scoped>
 .index {
 	display: flex;
-	flex-basis: 30%;
 	gap: 30px;
-	margin: 30px auto;
+	margin: 30px;
 }
 </style>

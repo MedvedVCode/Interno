@@ -34,10 +34,10 @@ export default {
 		return {
 			currentArticle: {},
 			listArticles: []
-		}
+		};
 	},
 	computed: {
-		...mapGetters(['ARTICLE_BY_ID', 'TAGS', 'ARTICLES_BY_TAG'])
+		...mapGetters(['ARTICLE_BY_ID', 'TAGS', 'ARTICLES_BY_TAG']),
 	},
 
 	methods: {

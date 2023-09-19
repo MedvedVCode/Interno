@@ -30,6 +30,7 @@ export default {
 	border: 1px solid tomato;
 	border-radius: 15px;
 	align-items: center;
+	flex-basis: calc(99% / 3 - 60px);
 
 	&__img {
 		max-width: 300px;

@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
 		<HeaderBlock />
-		<KeepAlive>
+		<!-- <KeepAlive> -->
 			<router-view />
-		</KeepAlive>
+		<!-- </KeepAlive> -->
 		<FooterBlock />
 	</div>
 </template>
