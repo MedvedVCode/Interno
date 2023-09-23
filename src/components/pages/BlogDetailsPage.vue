@@ -52,7 +52,7 @@ export default {
 		}
 	},
 
-	mounted() {
+	created() {
 		this.currentArticle = this.ARTICLE_BY_ID(this.$route.query.id);
 		this.listArticles = this.ARTICLES_BY_TAG(this.currentArticle.tags[0]);
 	}
@@ -64,6 +64,7 @@ export default {
 	margin: 30px auto;
 	display: flex;
 	justify-content: space-between;
+	align-items: start;
 	gap: 30px;
 
 	&__articles {
@@ -71,6 +72,8 @@ export default {
 		flex-direction: column;
 		gap: 30px;
 		align-items: center;
+		padding: 20px;
+		border: 1px solid teal;
 	}
 
 	&__list {
@@ -80,6 +83,11 @@ export default {
 		flex-direction: column;
 		align-items: center;
 		cursor: pointer;
+	}
+
+	aside {
+		border: 1px solid teal;
+		padding: 20px;
 	}
 
 	&__tags {

@@ -23,6 +23,14 @@ const router = new VueRouter({
           /* webpackChunkName: "Blog"*/ '../components/pages/BlogPage.vue'
         ),
     },
+		{
+      path: '/blog/:page',
+      name: 'blog-page',
+      component: () =>
+        import(
+          /* webpackChunkName: "Blog-Page"*/ '../components/pages/BlogPage.vue'
+        ),
+    },
     {
       path: '/blog-details',
       name: 'blog-details',

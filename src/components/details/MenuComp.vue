@@ -6,15 +6,15 @@
 </template>
 
 <script>
-	export default {
-		name:'MenuComp'
-	}
+export default {
+	name: 'MenuComp'
+}
 </script>
 
 <style lang="scss" scoped>
-	.menu{
-		padding: 15px;
-		border: 1px solid teal;
-		display: flex;
-	}
+.menu {
+	padding: 15px;
+	border: 1px solid teal;
+	display: flex;
+}
 </style>

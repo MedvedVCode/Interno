@@ -11,7 +11,8 @@ export default {
 	name: 'IndexPage',
 	data() {
 		return {
-			amountArticles: 3,
+			toArticle: 3,
+			fromArticle: 0,
 		}
 	},
 	components: {
@@ -19,8 +20,8 @@ export default {
 	},
 	computed: {
 		...mapGetters(['ARTICLES_BY_AMOUNT']),
-		showFirstAtricles(){
-			return this.ARTICLES_BY_AMOUNT(this.amountArticles)
+		showFirstAtricles() {
+			return this.ARTICLES_BY_AMOUNT(this.fromArticle, this.toArticle)
 		}
 	}
 }

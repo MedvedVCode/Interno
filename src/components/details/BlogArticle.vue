@@ -2,11 +2,11 @@
 	<div class="article">
 		<div>
 			<h2>{{ article.title }}</h2>
+			<p>{{ article.id }}</p>
 			<p>{{ article.date }}</p>
-			<button @click="goToArticle">Открыть статью</button>
+			<router-link :to="{ name: 'blog-details', query: { 'id': this.article.id } }">Открыть статью</router-link>
 		</div>
 		<img :src="require('@/assets/img/' + article.img)" alt="" class="article__img">
-
 	</div>
 </template>
 
@@ -14,11 +14,6 @@
 export default {
 	name: 'BlogBlock',
 	props: ['article'],
-	methods:{
-		goToArticle(){
-			this.$router.push( {name: 'blog-details', query: { 'id': this.article.id }})
-		}
-	}
 }
 </script>
 
