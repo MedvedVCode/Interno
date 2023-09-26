@@ -11,7 +11,7 @@ const store = new Vuex.Store({
 				title: 'Let’s Get Solution For Building Construction Work',
 				img: 'blog-item-img-01.png',
 				date: '22 December, 2021',
-				tags: [1, 4],
+				tags: [1],
 				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
@@ -146,7 +146,7 @@ const store = new Vuex.Store({
 				title: 'Let’s Get Solution For Building Construction Work',
 				img: 'blog-item-img-04.png',
 				date: '4 June, 2023 ',
-				tags: [1, 5],
+				tags: [1],
 				text: 'Далеко-далеко за словесными горами, в стране гласных и согласных живут рыбные тексты. Парадигматическая продолжил lorem эта безорфографичный рекламных, себя возвращайся бросил одна пояс ipsum ручеек не всеми, лучше агентство свой первую страна.',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
@@ -164,7 +164,7 @@ const store = new Vuex.Store({
 				title: 'Best For Any Office & Business Interior Solution',
 				img: 'blog-item-img-06.png',
 				date: '13 December, 2020 ',
-				tags: [1, 2],
+				tags: [2],
 				text: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Продолжил однажды собрал живет города, взгляд ему диких составитель буквенных!',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
@@ -173,7 +173,7 @@ const store = new Vuex.Store({
 				title: 'Let’s Get Solution For Building Construction Work',
 				img: 'blog-item-img-01.png',
 				date: '22 December, 2021',
-				tags: [1, 6],
+				tags: [6],
 				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
@@ -191,7 +191,7 @@ const store = new Vuex.Store({
 				title: 'Best For Any Office & Business Interior Solution',
 				img: 'blog-item-img-03.png',
 				date: '26 May, 2023 ',
-				tags: [4, 5],
+				tags: [6],
 				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, iste. Ex labore omnis tempore consequuntur mollitia praesentium saepe aperiam atque! Doloribus reprehenderit explicabo iure accusantium. Pariatur vitae suscipit repudiandae neque.',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
@@ -204,7 +204,35 @@ const store = new Vuex.Store({
 				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, iste. Ex labore omnis tempore consequuntur mollitia praesentium saepe aperiam atque! Doloribus reprehenderit explicabo iure accusantium. Pariatur vitae suscipit repudiandae neque.',
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
+			{
+				id: 23,
+				title: 'Low Cost Latest Invented Interior Designing Ideas',
+				img: 'blog-item-img-02.png',
+				date: '25 October, 2022',
+				tags: [3],
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, iste. Ex labore omnis tempore consequuntur mollitia praesentium saepe aperiam atque! Doloribus reprehenderit explicabo iure accusantium. Pariatur vitae suscipit repudiandae neque.',
+				breadcrumbs: ['interior', 'home', 'decor'],
+			},
+			{
+				id: 24,
+				title: 'Best For Any Office & Business Interior Solution',
+				img: 'blog-item-img-03.png',
+				date: '26 May, 2023 ',
+				tags: [5],
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, iste. Ex labore omnis tempore consequuntur mollitia praesentium saepe aperiam atque! Doloribus reprehenderit explicabo iure accusantium. Pariatur vitae suscipit repudiandae neque.',
+				breadcrumbs: ['interior', 'home', 'decor'],
+			},
+			{
+				id: 25,
+				title: 'Low Cost Latest Invented Interior Designing Ideas',
+				img: 'blog-item-img-02.png',
+				date: '25 October, 2022',
+				tags: [1],
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, iste. Ex labore omnis tempore consequuntur mollitia praesentium saepe aperiam atque! Doloribus reprehenderit explicabo iure accusantium. Pariatur vitae suscipit repudiandae neque.',
+				breadcrumbs: ['interior', 'home', 'decor'],
+			},
 		],
+		resultArticles: [],
 		tags: [
 			{ id: 1, name: 'kitchen', checked: false },
 			{ id: 2, name: 'bedroom', checked: false },
@@ -215,13 +243,13 @@ const store = new Vuex.Store({
 		],
 	},
 	getters: {
-		ARTICLES_BY_AMOUNT: (state) => (from, to) => state.articles.slice(from, to),
+		firstThreeArticles: (state) => state.articles.slice(0, 3),
 		ARTICLE_BY_ID: (state) => (id) =>
 			state.articles.find((item) => item.id === id),
 		ARTICLES_BY_TAG: (state) => (tagId) =>
 			state.articles.filter((item) => item.tags.includes(tagId)),
-		ARTICLES_LENGTH: (state) => state.articles.length,
-		LATEST_ARTICLE: (state) => {
+		articlesLength: (state) => state.articles.length,
+		latestArticle: (state) => {
 			let maxDate = new Date(state.articles[0].date);
 			let maxDateIndex = 0;
 			state.articles.forEach((item) => {
@@ -233,7 +261,20 @@ const store = new Vuex.Store({
 			});
 			return store.getters.ARTICLE_BY_ID(maxDateIndex);
 		},
-		TAGS: (state) => state.tags,
+		resultArticlesByPage(state) {
+			return state.resultArticles;
+		},
+		tags: (state) => state.tags,
+	},
+	mutations: {
+		SET_RESULT_ARTICLES_BY_AMOUNT(state, { from, to }) {
+			state.resultArticles = state.articles.slice(from, to);
+		},
+	},
+	actions: {
+		getArticlesByAmount({ commit }, { from, to }) {
+			commit('SET_RESULT_ARTICLES_BY_AMOUNT', { from: from, to: to });
+		},
 	},
 });
 

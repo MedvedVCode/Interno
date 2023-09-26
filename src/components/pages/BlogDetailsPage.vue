@@ -18,7 +18,7 @@
 		<aside>
 			<h3>Tags</h3>
 			<ul class="blog-details__tags">
-				<li v-for="tag in TAGS" :key="tag.id">
+				<li v-for="tag in tags" :key="tag.id">
 					<button @click="selectTag(tag.id)">{{ tag.name }}</button>
 				</li>
 			</ul>
@@ -37,7 +37,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['ARTICLE_BY_ID', 'TAGS', 'ARTICLES_BY_TAG']),
+		...mapGetters(['ARTICLE_BY_ID', 'tags', 'ARTICLES_BY_TAG']),
 	},
 
 	methods: {

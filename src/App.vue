@@ -19,7 +19,7 @@ export default {
 		HeaderBlock
 	},
 	created() {
-		this.$router.push('/index')
+		// this.$router.push('/index')
 	}
 }
 </script>

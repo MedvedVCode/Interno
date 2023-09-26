@@ -11,17 +11,16 @@ export default {
 	name: 'IndexPage',
 	data() {
 		return {
-			toArticle: 3,
-			fromArticle: 0,
+		
 		}
 	},
 	components: {
 		BlogArticle,
 	},
 	computed: {
-		...mapGetters(['ARTICLES_BY_AMOUNT']),
+		...mapGetters(['firstThreeArticles']),
 		showFirstAtricles() {
-			return this.ARTICLES_BY_AMOUNT(this.fromArticle, this.toArticle)
+			return this.firstThreeArticles;
 		}
 	}
 }
