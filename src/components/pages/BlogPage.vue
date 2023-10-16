@@ -1,16 +1,21 @@
 <template>
 	<div>
+		<v-banner
+			:imgUrl="'banner_blog.png'"
+			:title="'article & news'"
+			:breadcrumbs="['home','blog']"
+		></v-banner>
 		<article class="latest-post">
 			<h2>Latest Post</h2>
 			<img
-				:src="require('@/assets/img/' + latestArticle.img)"
+				:src="require('@/assets/img/' + getArticleById.img)"
 				alt="interior photo"
 			/>
-			<h3>{{ latestArticle.title }}</h3>
-			<p>{{ latestArticle.text }}</p>
-			<p>{{ latestArticle.date }}</p>
+			<h3>{{ getArticleById.title }}</h3>
+			<p>{{ getArticleById.text }}</p>
+			<p>{{ getArticleById.date }}</p>
 			<router-link
-				:to="{ name: 'blog-details', query: { id: latestArticle.id } }"
+				:to="{ name: 'blog-details', query: { id: getArticleById.id } }"
 				>Перейти в статью</router-link
 			>
 		</article>
@@ -30,6 +35,7 @@
 </template>
 
 <script>
+import vBanner from '../blocks/v-banner.vue';
 import { mapGetters, mapActions } from 'vuex';
 import BlogArticle from '../details/BlogArticle.vue';
 import PaginationComp from '../details/PaginationComp.vue';
@@ -39,6 +45,7 @@ export default {
 	components: {
 		BlogArticle,
 		PaginationComp,
+		vBanner,
 	},
 	data() {
 		return {
@@ -50,22 +57,23 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['latestArticle', 'articlesLength', 'resultArticlesByPage']),
+		...mapGetters(['getArticleById', 'articlesLength', 'resultArticlesByPage']),
 		showAtricles() {
 			return this.resultArticlesByPage;
 		},
 	},
 	methods: {
-		...mapActions(['getArticlesByAmount']),
+		...mapActions(['setArticlesByAmount', 'setLatestArticle']),
 	},
-	mounted() {
+	created() {
 		this.totalPages = Math.ceil(this.articlesLength / this.articlesOnPage);
-		this.getArticlesByAmount({
+		this.setArticlesByAmount({
 			from: this.fromArticle,
 			to: this.fromArticle + this.articlesOnPage,
 		});
 		this.currentPage =
 			this.$route.path !== '/blog' ? +this.$route.params.page : 1;
+		this.setLatestArticle();
 	},
 	watch: {
 		$route(to) {
@@ -73,7 +81,7 @@ export default {
 		},
 		currentPage() {
 			this.fromArticle = (this.currentPage - 1) * this.articlesOnPage;
-			this.getArticlesByAmount({
+			this.setArticlesByAmount({
 				from: this.fromArticle,
 				to: this.fromArticle + this.articlesOnPage,
 			});

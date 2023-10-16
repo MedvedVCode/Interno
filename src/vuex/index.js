@@ -233,7 +233,7 @@ const store = new Vuex.Store({
 			},
 		],
 		resultArticles: [],
-		tags: [
+		articleTags: [
 			{ id: 1, name: 'kitchen', checked: false },
 			{ id: 2, name: 'bedroom', checked: false },
 			{ id: 3, name: 'building', checked: false },
@@ -241,15 +241,49 @@ const store = new Vuex.Store({
 			{ id: 5, name: 'kitchen planning', checked: false },
 			{ id: 6, name: 'bathroom', checked: false },
 		],
+		articlesByTag: [],
+		articleById: {},
+		bannersImg:{
+			project:'banner_project.png',
+			projectDetails:'banner_project-details.png',
+			blog:'banner_blog.png',
+			blogDetails:'banner_blog-details.png'
+		}
 	},
 	getters: {
 		firstThreeArticles: (state) => state.articles.slice(0, 3),
-		ARTICLE_BY_ID: (state) => (id) =>
-			state.articles.find((item) => item.id === id),
-		ARTICLES_BY_TAG: (state) => (tagId) =>
-			state.articles.filter((item) => item.tags.includes(tagId)),
+		getArticleById: (state) => state.articleById,
+		getArticlesByTag: (state) => state.articlesByTag,
 		articlesLength: (state) => state.articles.length,
-		latestArticle: (state) => {
+		resultArticlesByPage: (state) => state.resultArticles,
+		articleTags: (state) => state.articleTags,
+		getBannerProject:(state)=>state.bannersImg.project,
+		getBannerProjectDetails:(state)=>state.bannersImg.projectDetails,
+		getBannerBlog:(state)=>state.bannersImg.blog,
+		getBannerBlogDetails:(state)=>state.bannersImg.blogDetails,
+	},
+	mutations: {
+		SET_RESULT_ARTICLES_BY_AMOUNT(state, { from, to }) {
+			state.resultArticles = state.articles.slice(from, to);
+		},
+		SET_ARTICLE_BY_ID(state, id) {
+			state.articleById = state.articles.find((item) => item.id === id);
+		},
+		SET_ARTICLES_BY_TAG(state, tagId) {
+			state.articlesByTag = state.articles.filter((item) =>
+				item.tags.includes(tagId)
+			);
+
+		},
+	},
+	actions: {
+		setArticlesByAmount({ commit }, { from, to }) {
+			commit('SET_RESULT_ARTICLES_BY_AMOUNT', { from: from, to: to });
+		},
+		setArticleById({ commit }, payload) {
+			commit('SET_ARTICLE_BY_ID', payload);
+		},
+		setLatestArticle({ commit, state }) {
 			let maxDate = new Date(state.articles[0].date);
 			let maxDateIndex = 0;
 			state.articles.forEach((item) => {
@@ -259,21 +293,10 @@ const store = new Vuex.Store({
 					maxDateIndex = item.id;
 				}
 			});
-			return store.getters.ARTICLE_BY_ID(maxDateIndex);
+			commit('SET_ARTICLE_BY_ID', maxDateIndex);
 		},
-		resultArticlesByPage(state) {
-			return state.resultArticles;
-		},
-		tags: (state) => state.tags,
-	},
-	mutations: {
-		SET_RESULT_ARTICLES_BY_AMOUNT(state, { from, to }) {
-			state.resultArticles = state.articles.slice(from, to);
-		},
-	},
-	actions: {
-		getArticlesByAmount({ commit }, { from, to }) {
-			commit('SET_RESULT_ARTICLES_BY_AMOUNT', { from: from, to: to });
+		setArticlesByTag({ commit }, payload) {
+			commit('SET_ARTICLES_BY_TAG', payload);
 		},
 	},
 });

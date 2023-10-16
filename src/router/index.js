@@ -8,7 +8,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'home',
       component: () =>
         import(
           /* webpackChunkName: "Index"*/ '../components/pages/IndexPage.vue'

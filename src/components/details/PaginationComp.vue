@@ -4,8 +4,8 @@
 			v-if="currentPage > 1"
 			class="btn"
 			:to="`${currentPath}/${currentPage - 1}`"
-			>&#10094;</router-link
-		>
+			>&#10094;
+		</router-link>
 		<router-link
 			class="btn"
 			v-for="(page, index) in printPages"
@@ -83,7 +83,6 @@ a {
 	gap: 20px;
 	margin-bottom: 30px;
 }
-
 .btn {
 	color: #292f36;
 	width: 52px;
@@ -93,7 +92,6 @@ a {
 	font-size: 16px;
 	line-height: 52px;
 	font-weight: 600;
-
 	&:hover,
 	&__active {
 		background-color: #f4f0ec;

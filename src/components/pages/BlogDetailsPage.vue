@@ -1,62 +1,85 @@
 <template>
-	<div class="blog-details">
-		<div class="blog-details__articles">
-			<article class="blog-details__article">
-				<h2>{{ currentArticle.title }}</h2>
-				<h3>{{ currentArticle.id }}</h3>
-				<img :src="require('@/assets/img/' + currentArticle.img)" alt="interior photo">
-				<p>{{ currentArticle.date }}</p>
-				<p>{{ currentArticle.breadcrumbs }}</p>
-				<p>{{ currentArticle.text }}</p>
-			</article>
-			<ol class="blog-details__list">
-				<li v-for="list in listArticles" :key="list.id" @click="selectArticle(list.id)">
-					<p>{{ list.title }}</p>
-				</li>
-			</ol>
+	<div>
+		<v-banner :imgUrl="'banner_blog-details.png'"></v-banner>
+		<div class="blog-details">
+			<div class="blog-details__articles">
+				<article class="blog-details__article">
+					<h2>{{ currentArticle.title }}</h2>
+					<h3>{{ currentArticle.id }}</h3>
+					<img
+						:src="require('@/assets/img/' + currentArticle.img)"
+						alt="interior photo"
+					/>
+					<p>{{ currentArticle.date }}</p>
+					<p>{{ currentArticle.breadcrumbs }}</p>
+					<p>{{ currentArticle.text }}</p>
+				</article>
+
+				<ol class="blog-details__list">
+					<li
+						v-for="list in listArticles"
+						:key="list.id"
+						@click="selectArticle(list.id)"
+					>
+						<p>{{ list.title }}</p>
+					</li>
+				</ol>
+			</div>
+
+			<aside>
+				<h3>Tags</h3>
+				<ul class="blog-details__tags">
+					<li
+						v-for="tag in articleTags"
+						:key="tag.id"
+					>
+						<button @click="selectTag(tag.id)">{{ tag.name }}</button>
+					</li>
+				</ul>
+			</aside>
 		</div>
-		<aside>
-			<h3>Tags</h3>
-			<ul class="blog-details__tags">
-				<li v-for="tag in tags" :key="tag.id">
-					<button @click="selectTag(tag.id)">{{ tag.name }}</button>
-				</li>
-			</ul>
-		</aside>
 	</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import vBanner from '../blocks/v-banner.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
 	name: 'BlogDetailsPage',
+	components: {
+		vBanner,
+	},
 	data() {
 		return {
 			currentArticle: {},
-			listArticles: []
+			listArticles: [],
 		};
 	},
 	computed: {
-		...mapGetters(['ARTICLE_BY_ID', 'tags', 'ARTICLES_BY_TAG']),
+		...mapGetters(['getArticleById', 'articleTags', 'getArticlesByTag']),
 	},
 
 	methods: {
+		...mapActions(['setArticleById', 'setArticlesByTag']),
 		selectTag(tagId) {
-			this.listArticles = this.ARTICLES_BY_TAG(tagId);
+			this.setArticlesByTag(tagId);
+			this.listArticles = this.getArticlesByTag;
 			this.currentArticle = this.listArticles[0];
-			this.$router.push({ query: { 'id': this.currentArticle.id } });
+			this.$router.push({ query: { id: this.currentArticle.id } });
 		},
 		selectArticle(articleId) {
-			this.currentArticle = this.ARTICLE_BY_ID(articleId);
-			this.$router.push({ query: { 'id': this.currentArticle.id } });
-		}
+			this.setArticleById(articleId);
+			this.currentArticle = this.getArticleById;
+			this.$router.push({ query: { id: this.currentArticle.id } });
+		},
 	},
-
 	created() {
-		this.currentArticle = this.ARTICLE_BY_ID(this.$route.query.id);
-		this.listArticles = this.ARTICLES_BY_TAG(this.currentArticle.tags[0]);
-	}
-}
+		this.setArticleById(+this.$route.query.id);
+		this.currentArticle = this.getArticleById;
+		this.setArticlesByTag(this.currentArticle.tags[0]);
+		this.listArticles = this.getArticlesByTag;
+	},
+};
 </script>
 
 <style lang="scss" scoped>
