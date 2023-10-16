@@ -1,34 +1,51 @@
 <template>
 	<div>
+		<v-banner
+			:imgUrl="'banner_blog.png'"
+			:title="'article & news'"
+			:breadcrumbs="['home','blog']"
+		></v-banner>
 		<article class="latest-post">
 			<h2>Latest Post</h2>
-			<img :src="require('@/assets/img/' + LATEST_ARTICLE.img)" alt="interior photo">
-			<h3>{{ LATEST_ARTICLE.title }}</h3>
-			<p>{{ LATEST_ARTICLE.text }}</p>
-			<p>{{ LATEST_ARTICLE.date }}</p>
-			<router-link :to="{ name: 'blog-details', query: { 'id': LATEST_ARTICLE.id } }">Перейти в статью</router-link>
+			<img
+				:src="require('@/assets/img/' + getArticleById.img)"
+				alt="interior photo"
+			/>
+			<h3>{{ getArticleById.title }}</h3>
+			<p>{{ getArticleById.text }}</p>
+			<p>{{ getArticleById.date }}</p>
+			<router-link
+				:to="{ name: 'blog-details', query: { id: getArticleById.id } }"
+				>Перейти в статью</router-link
+			>
 		</article>
 		<div class="post-list">
-			<BlogArticle v-for="article in showAtricles" :key="article.id" :article="article" />
+			<BlogArticle
+				v-for="article in showAtricles"
+				:key="article.id"
+				:article="article"
+			/>
 		</div>
-		<nav class="pagination">
-			<button v-if="currentPage > 1" class="btn" @click="movePageLeft">&#10094;</button>
-			<router-link class="btn" v-for="(page, index) in printPages" :key="index" :to="`/blog/${page}`">
-				{{ page }}
-			</router-link>
-			<button v-if="currentPage < totalPages" class="btn" @click="movePageRigth">&#10095;</button>
-		</nav>
+		<PaginationComp
+			:currentPath="`/blog`"
+			:pagesOnPage="pagesOnPage"
+			:totalPages="totalPages"
+		/>
 	</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import vBanner from '../blocks/v-banner.vue';
+import { mapGetters, mapActions } from 'vuex';
 import BlogArticle from '../details/BlogArticle.vue';
+import PaginationComp from '../details/PaginationComp.vue';
 
 export default {
 	name: 'BlogPage',
 	components: {
 		BlogArticle,
+		PaginationComp,
+		vBanner,
 	},
 	data() {
 		return {
@@ -37,42 +54,26 @@ export default {
 			pagesOnPage: 3,
 			currentPage: 1,
 			totalPages: 1,
-			listPages: [],
 		};
 	},
 	computed: {
-		...mapGetters(['LATEST_ARTICLE', 'ARTICLES_BY_AMOUNT', 'ARTICLES_LENGTH']),
+		...mapGetters(['getArticleById', 'articlesLength', 'resultArticlesByPage']),
 		showAtricles() {
-			return this.ARTICLES_BY_AMOUNT(this.fromArticle, this.fromArticle + this.articlesOnPage);
+			return this.resultArticlesByPage;
 		},
-		printPages() {
-			return this.listPages;
-		}
 	},
 	methods: {
-		movePageLeft() {
-			if (this.currentPage - 1 < this.pagesOnPage) {
-				let a = this.listPages.slice(0, this.pagesOnPage + 1);
-				a.forEach(element => {
-					return element--;
-				});
-				this.listPages = a;
-			}
-			this.$router.push(`/blog/${this.currentPage - 1}`);
-		},
-		movePageRigth() {
-			if (this.currentPage + 1 > this.pagesOnPage) {
-				this.listPages.shift();
-				this.listPages.push(this.currentPage + 1);
-			}
-			this.$router.push(`/blog/${this.currentPage + 1}`);
-		}
+		...mapActions(['setArticlesByAmount', 'setLatestArticle']),
 	},
-	mounted() {
-		this.totalPages = Math.ceil(this.ARTICLES_LENGTH / this.articlesOnPage);
-		for (let i = 1; i <= this.pagesOnPage; i++) {
-			this.listPages.push(i);
-		}
+	created() {
+		this.totalPages = Math.ceil(this.articlesLength / this.articlesOnPage);
+		this.setArticlesByAmount({
+			from: this.fromArticle,
+			to: this.fromArticle + this.articlesOnPage,
+		});
+		this.currentPage =
+			this.$route.path !== '/blog' ? +this.$route.params.page : 1;
+		this.setLatestArticle();
 	},
 	watch: {
 		$route(to) {
@@ -80,9 +81,13 @@ export default {
 		},
 		currentPage() {
 			this.fromArticle = (this.currentPage - 1) * this.articlesOnPage;
-		}
-	}
-}
+			this.setArticlesByAmount({
+				from: this.fromArticle,
+				to: this.fromArticle + this.articlesOnPage,
+			});
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>

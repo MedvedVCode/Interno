@@ -4,12 +4,11 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  base: '/',
   mode: 'history',
   routes: [
     {
-      path: '/index',
-      name: 'index',
+      path: '/',
+      name: 'home',
       component: () =>
         import(
           /* webpackChunkName: "Index"*/ '../components/pages/IndexPage.vue'
@@ -39,6 +38,7 @@ const router = new VueRouter({
           /* webpackChunkName: "BlogDetails"*/ '../components/pages/BlogDetailsPage.vue'
         ),
     },
+		
   ],
 });
 

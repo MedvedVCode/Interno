@@ -1,6 +1,6 @@
 <template>
 	<div class="logo">
-		<router-link to="/index">Interno</router-link>
+		<router-link to="/">Interno</router-link>
 	</div>
 </template>
 
