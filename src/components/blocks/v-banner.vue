@@ -30,7 +30,7 @@ export default {
 	background-color: tomato;
 	height: 356px;
 	display: flex;
-	align-items: end;
+	align-items: flex-end;
 	width: 100%;
 	margin-top: 45px;
 }

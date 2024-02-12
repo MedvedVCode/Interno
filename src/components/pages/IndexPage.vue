@@ -1,12 +1,14 @@
 <template>
-	<div class="index">
+	<main class="index">
+		<BannerBlock />
 		<BlogArticle v-for="article in showFirstAtricles" :key="article.id" :article="article" />
-	</div>
+</main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import BlogArticle from '../details/BlogArticle.vue'
+import BannerBlock from '../blocks/BannerBlock.vue';
 export default {
 	name: 'IndexPage',
 	data() {
@@ -15,8 +17,9 @@ export default {
 		}
 	},
 	components: {
-		BlogArticle,
-	},
+    BlogArticle,
+    BannerBlock
+},
 	computed: {
 		...mapGetters(['firstThreeArticles']),
 		showFirstAtricles() {
@@ -27,9 +30,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index {
-	display: flex;
-	gap: 30px;
-	margin: 30px;
-}
+// .index {
+// 	display: flex;
+// 	gap: 30px;
+// 	margin: 30px;
+// }
 </style>

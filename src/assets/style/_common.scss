@@ -1,0 +1,52 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	border: none;
+}
+
+.center {
+		max-width: 1200px;
+		width: 100%;
+		margin: 0 auto;
+	&-lines {
+		background-color: transparent;
+		border-right: 1px solid $borderColor;
+		border-left: 1px solid $borderColor;
+		position: relative;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 33.3333%;
+			top: 0;
+			width: 1px;
+			height: 100%;
+			background-color: $borderColor;
+			z-index: -1;
+		}
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			right: 33.3333%;
+			top: 0;
+			width: 1px;
+			height: 100%;
+			background-color: $borderColor;
+			z-index: -1;
+		}
+	}
+}

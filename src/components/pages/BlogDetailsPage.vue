@@ -87,7 +87,7 @@ export default {
 	margin: 30px auto;
 	display: flex;
 	justify-content: space-between;
-	align-items: start;
+	align-items: flex-start;
 	gap: 30px;
 
 	&__articles {

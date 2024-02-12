@@ -38,7 +38,6 @@ const router = new VueRouter({
           /* webpackChunkName: "BlogDetails"*/ '../components/pages/BlogDetailsPage.vue'
         ),
     },
-		
   ],
 });
 
