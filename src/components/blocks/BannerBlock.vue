@@ -37,7 +37,6 @@ export default {
 
 <style lang="scss" scoped>
 .banner {
-	margin-bottom: 96px;
 	&-wrp {
 		border-radius: 70px;
 		background-image: url(@/assets/img/banner-back-img.png);

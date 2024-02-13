@@ -248,6 +248,14 @@ const store = new Vuex.Store({
 			projectDetails:'banner_project-details.png',
 			blog:'banner_blog.png',
 			blogDetails:'banner_blog-details.png'
+		},
+		projectTitle: {
+			title: 'follow our projects',
+			description: 'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.'
+		},
+		articleTitle: {
+			title: 'articles & news',
+			description: 'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.'
 		}
 	},
 	getters: {
@@ -261,6 +269,8 @@ const store = new Vuex.Store({
 		getBannerProjectDetails:(state)=>state.bannersImg.projectDetails,
 		getBannerBlog:(state)=>state.bannersImg.blog,
 		getBannerBlogDetails:(state)=>state.bannersImg.blogDetails,
+		getProjectTitle:(state)=>state.projectTitle,
+		getArticleTitle:(state)=>state.articleTitle,
 	},
 	mutations: {
 		SET_RESULT_ARTICLES_BY_AMOUNT(state, { from, to }) {

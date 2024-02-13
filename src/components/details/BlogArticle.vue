@@ -22,7 +22,6 @@ export default {
 	display: flex;
 	flex-direction: column-reverse;
 	padding: 20px;
-	border: 1px solid tomato;
 	border-radius: 15px;
 	align-items: center;
 	flex-basis: calc(100% / 3 - 63px);
