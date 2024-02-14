@@ -1,26 +1,26 @@
 <template>
-	<section class="counter">
-		<div class="center">
-			<ul class="counter__list">
-				<li class="counter__item">
-					<p class="counter__value">12</p>
-					<p class="counter__description">years of experiance</p>
-				</li>
-				<li class="counter__item">
-					<p class="counter__value">85</p>
-					<p class="counter__description">success project</p>
-				</li>
-				<li class="counter__item">
-					<p class="counter__value">15</p>
-					<p class="counter__description">active project</p>
-				</li>
-				<li class="counter__item">
-					<p class="counter__value">95</p>
-					<p class="counter__description">happy customers</p>
-				</li>
-			</ul>
-		</div>
-	</section>
+		<section class="counter">
+			<div class="center">
+				<ul class="counter__list">
+					<li class="counter__item">
+						<p class="counter__value">12</p>
+						<p class="counter__description">years of experiance</p>
+					</li>
+					<li class="counter__item">
+						<p class="counter__value">85</p>
+						<p class="counter__description">success project</p>
+					</li>
+					<li class="counter__item">
+						<p class="counter__value">15</p>
+						<p class="counter__description">active project</p>
+					</li>
+					<li class="counter__item">
+						<p class="counter__value">95</p>
+						<p class="counter__description">happy customers</p>
+					</li>
+				</ul>
+			</div>
+		</section>
 </template>
 
 <script>
@@ -33,6 +33,9 @@ export default {
 .counter {
   background-color: $accentBGColor;
   padding: 151px 0;
+	&-wrp{
+		padding-bottom: 96px;
+	}
   &__list {
     margin: 0 20px;
     display: flex;

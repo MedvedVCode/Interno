@@ -3,17 +3,17 @@
 		class="banner-wrp"
 		:style="{ backgroundImage: `url(${require('@/assets/img/' + imgUrl)})` }"
 	>
-		<v-banner-inner v-if="title" :title="title" :breadcrumbs="breadcrumbs"></v-banner-inner>
+		<PageBannerComp v-if="title" :title="title" :breadcrumbs="breadcrumbs"></PageBannerComp>
 	</div>
 </template>
 
 <script>
-import vBannerInner from '../details/v-banner-inner.vue';
+import PageBannerComp from '../details/PageBannerComp.vue';
 export default {
-	name: 'BannerBlock',
+	name: 'PageBannerBlock',
 	components: {
-		vBannerInner,
-	},
+    PageBannerComp
+},
 	props: {
 		imgUrl: { type: String, default: '' },
 		title: { type: String, default: '' },
@@ -32,6 +32,5 @@ export default {
 	display: flex;
 	align-items: flex-end;
 	width: 100%;
-	margin-top: 45px;
 }
 </style>

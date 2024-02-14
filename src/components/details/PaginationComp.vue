@@ -81,7 +81,8 @@ a {
 	display: flex;
 	justify-content: center;
 	gap: 20px;
-	margin-bottom: 30px;
+	padding: 51px 0 104px;
+	text-align: center;
 }
 .btn {
 	color: #292f36;

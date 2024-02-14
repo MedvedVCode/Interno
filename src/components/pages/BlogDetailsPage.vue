@@ -1,53 +1,91 @@
 <template>
-	<div>
-		<v-banner :imgUrl="'banner_blog-details.png'"></v-banner>
-		<div class="blog-details">
-			<div class="blog-details__articles">
-				<article class="blog-details__article">
-					<h2>{{ currentArticle.title }}</h2>
-					<h3>{{ currentArticle.id }}</h3>
+	<main>
+		<PageBannerBlock :imgUrl="'banner_blog-details.png'"></PageBannerBlock>
+		<div class="details center center-lines">
+			<div class="details__wrp">
+				<article>
+					<h2 class="details__title">{{ currentArticle.title }}</h2>
 					<img
+						class="details__img"
 						:src="require('@/assets/img/' + currentArticle.img)"
 						alt="interior photo"
+						height="539"
 					/>
-					<p>{{ currentArticle.date }}</p>
-					<p>{{ currentArticle.breadcrumbs }}</p>
-					<p>{{ currentArticle.text }}</p>
+					<div class="details__desc">
+						<p class="details__date">{{ currentArticle.date }}</p>
+						<ul class="details__breadcrumbs">
+							<li
+								v-for="breadcrumb in currentArticle.breadcrumbs"
+								:key="breadcrumb"
+								class="details__breadcrumbs-item"
+							>
+								<span>
+									{{ breadcrumb }}
+								</span>
+							</li>
+						</ul>
+					</div>
+					<p class="details__text">{{ currentArticle.text }}</p>
+					<div class="quote">
+						<div class="quote__body">
+							<p class="quote__main">&bdquo;</p>
+							<p class="quote__text">
+								The details are not the details. They make the design.
+							</p>
+						</div>
+					</div>
+					<h2 class="details__title">Design sprints are great</h2>
+					<p class="details__text">
+						Lorem ipsum dolor sit amet, adipiscing Aliquam eu sem vitae
+						turpmaximus.posuere in.Contrary to popular belief.There are many
+						variations of passages of Lorem Ipsum available, but the majority
+						have suffered.
+					</p>
 				</article>
 
-				<ol class="blog-details__list">
+				<ul class="similar">
 					<li
-						v-for="list in listArticles"
+						v-for="(list, index) in listArticles"
 						:key="list.id"
 						@click="selectArticle(list.id)"
 					>
-						<p>{{ list.title }}</p>
+						<span class="similar__index">{{ index + 1 }}</span>
+						<span class="similar__link">{{ list.title }}</span>
 					</li>
-				</ol>
+				</ul>
 			</div>
 
-			<aside>
-				<h3>Tags</h3>
-				<ul class="blog-details__tags">
+			<aside class="tags">
+				<h3 class="tags__title">Tags</h3>
+				<ul class="tags__list">
 					<li
 						v-for="tag in articleTags"
 						:key="tag.id"
+						class="tags__item"
 					>
-						<button @click="selectTag(tag.id)">{{ tag.name }}</button>
+						<button
+							@click="selectTag(tag.id)"
+							class="tags__btn"
+						>
+							{{ tag.name }}
+						</button>
 					</li>
 				</ul>
 			</aside>
 		</div>
-	</div>
+		<FooterBlock class="center center-lines" />
+	</main>
 </template>
 
 <script>
-import vBanner from '../blocks/v-banner.vue';
+import FooterBlock from '../blocks/FooterBlock.vue';
+import PageBannerBlock from '../blocks/PageBannerBlock.vue';
 import { mapGetters, mapActions } from 'vuex';
 export default {
 	name: 'BlogDetailsPage',
 	components: {
-		vBanner,
+		PageBannerBlock,
+		FooterBlock,
 	},
 	data() {
 		return {
@@ -83,42 +121,137 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.blog-details {
-	margin: 30px auto;
+.details {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: flex-start;
-	gap: 30px;
-
-	&__articles {
-		display: flex;
-		flex-direction: column;
-		gap: 30px;
-		align-items: center;
-		padding: 20px;
-		border: 1px solid teal;
+	gap: 52px;
+	padding-top: 200px;
+	&__wrp {
+		max-width: 66.6666%;
 	}
-
-	&__list {
-		max-width: 500px;
+	&__title {
+		color: $titleTxtColor;
+		@include dmSerif(50px, 125%, 1px);
+		text-transform: capitalize;
+	}
+	&__img {
+		margin-top: 21px;
+		width: 100%;
+		object-fit: cover;
+		border-radius: 50px;
+	}
+	&__desc {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
+		margin-top: 46px;
+		@include jost(16px, 400, 150%, 0.16px);
+		color: $textColor;
+	}
+	&__breadcrumbs {
+		display: flex;
+		text-transform: capitalize;
+		margin-right: 30px;
+		&-item {
+			&::after {
+				content: '/ ';
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+			&:last-child {
+				&::after {
+					content: none;
+					margin-right: 0;
+				}
+			}
+		}
+	}
+	&__text {
+		margin-top: 48px;
+		@include jost(22px, 400, 150%, 0.22px);
+		color: $textColor;
+	}
+}
+
+.quote {
+	margin: 35px 0 27px;
+	height: 267px;
+	background-color: $accentBGColor;
+	border-radius: 50px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	&__body {
+		height: 153px;
+		width: 345px;
+		font-style: italic;
+		color: $accentColor;
+		display: flex;
 		flex-direction: column;
-		align-items: center;
+		overflow: hidden;
+		justify-content: end;
+		text-align: center;
+	}
+	&__main {
+		@include dmSerif(200px, 125%, 1px);
+		font-weight: 400;
+	}
+	&__text {
+		@include dmSerif(25px, 125%, 1px);
+		font-weight: 400;
+		letter-spacing: 0.02em;
+	}
+}
+
+.similar {
+	max-width: 500px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 24px;
+	&__index {
+		@include dmSerif(20px, 125%, 1px);
+		font-weight: 400;
+		color: $accentColor;
+		margin-right: 11px;
+	}
+	&__link {
+		@include jost(22px, 400, 150%, 0.16px);
 		cursor: pointer;
+		color: $textColor;
+		max-width: 200px;
+		&:hover {
+			color: $accentColor;
+		}
 	}
-
-	aside {
-		border: 1px solid teal;
-		padding: 20px;
+}
+.tags {
+	max-width: 345px;
+	&__title {
+		@include dmSerif(25px, 125%, 2px);
 	}
-
-	&__tags {
+	&__list {
+		margin-top: 24px;
 		list-style: none;
-		width: 300px;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 5px;
+		justify-content: start;
+		gap: 10px;
+	}
+	&__btn {
+		padding: 8px 30px;
+		background-color: $accentBGColor;
+		border-radius: 10px;
+		@include jost(18px, 400, 125%, 0.02px);
+		color: $titleTxtColor;
+		cursor: pointer;
+		text-transform: capitalize;
+		&:hover {
+			color: white;
+			background-color: $titleTxtColor;
+		}
+		&:active {
+			color: $accentColor;
+		}
 	}
 }
 </style>

@@ -1,9 +1,5 @@
 <template>
-	<!-- <div class="footer">
-    <LogoComp />
-    <MenuComp class="footer__menu" />
-  </div> -->
-	<footer class="footer center center-lines">
+	<footer class="footer">
 		<ul class="footer__list">
 			<li class="footer__logo">
 				<LogoComp />
@@ -82,7 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-	padding-bottom: 134px;
+	padding: 96px 0 134px;
 
 	&__list {
 		display: flex;

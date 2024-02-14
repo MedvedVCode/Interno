@@ -232,6 +232,40 @@ const store = new Vuex.Store({
 				breadcrumbs: ['interior', 'home', 'decor'],
 			},
 		],
+		projects: [
+			{
+				id: 1,
+				title: 'Modern Kitchen',
+				img: 'project-card-img-01.png',
+				date: '22 December, 2021',
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
+				category: 'decor / architecture',
+			},
+			{
+				id: 2,
+				title: 'Modern Kitchen',
+				img: 'project-card-img-02.png',
+				date: '22 December, 2021',
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
+				category: 'decor / architecture',
+			},
+			{
+				id: 3,
+				title: 'Modern Kitchen',
+				img: 'project-card-img-03.png',
+				date: '22 December, 2021',
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
+				category: 'decor / architecture',
+			},
+			{
+				id: 4,
+				title: 'Modern Kitchen',
+				img: 'project-card-img-04.png',
+				date: '22 December, 2021',
+				text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident repellat minus voluptas voluptatum eum. Architecto facilis beatae molestias quam dolor fuga blanditiis. Quod, blanditiis ad. Placeat sequi tempore ex laboriosam.',
+				category: 'decor / architecture',
+			},
+		],
 		resultArticles: [],
 		articleTags: [
 			{ id: 1, name: 'kitchen', checked: false },
@@ -243,34 +277,37 @@ const store = new Vuex.Store({
 		],
 		articlesByTag: [],
 		articleById: {},
-		bannersImg:{
-			project:'banner_project.png',
-			projectDetails:'banner_project-details.png',
-			blog:'banner_blog.png',
-			blogDetails:'banner_blog-details.png'
+		bannersImg: {
+			project: 'banner_project.png',
+			projectDetails: 'banner_project-details.png',
+			blog: 'banner_blog.png',
+			blogDetails: 'banner_blog-details.png',
 		},
 		projectTitle: {
 			title: 'follow our projects',
-			description: 'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.'
+			description:
+				'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.',
 		},
 		articleTitle: {
 			title: 'articles & news',
-			description: 'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.'
-		}
+			description:
+				'It is a long established fact that a reader will be distracted by the of readable content of page lookings at its layouts points.',
+		},
 	},
 	getters: {
 		firstThreeArticles: (state) => state.articles.slice(0, 3),
+		fourFirstProjects: (state) => state.projects.slice(0, 4),
 		getArticleById: (state) => state.articleById,
 		getArticlesByTag: (state) => state.articlesByTag,
 		articlesLength: (state) => state.articles.length,
 		resultArticlesByPage: (state) => state.resultArticles,
 		articleTags: (state) => state.articleTags,
-		getBannerProject:(state)=>state.bannersImg.project,
-		getBannerProjectDetails:(state)=>state.bannersImg.projectDetails,
-		getBannerBlog:(state)=>state.bannersImg.blog,
-		getBannerBlogDetails:(state)=>state.bannersImg.blogDetails,
-		getProjectTitle:(state)=>state.projectTitle,
-		getArticleTitle:(state)=>state.articleTitle,
+		getBannerProject: (state) => state.bannersImg.project,
+		getBannerProjectDetails: (state) => state.bannersImg.projectDetails,
+		getBannerBlog: (state) => state.bannersImg.blog,
+		getBannerBlogDetails: (state) => state.bannersImg.blogDetails,
+		getProjectTitle: (state) => state.projectTitle,
+		getArticleTitle: (state) => state.articleTitle,
 	},
 	mutations: {
 		SET_RESULT_ARTICLES_BY_AMOUNT(state, { from, to }) {
@@ -283,7 +320,6 @@ const store = new Vuex.Store({
 			state.articlesByTag = state.articles.filter((item) =>
 				item.tags.includes(tagId)
 			);
-
 		},
 	},
 	actions: {

@@ -1,52 +1,46 @@
 <template>
-	<div>
-		<v-banner
+	<main>
+		<PageBannerBlock
 			:imgUrl="'banner_blog.png'"
 			:title="'article & news'"
-			:breadcrumbs="['home','blog']"
-		></v-banner>
-		<article class="latest-post">
-			<h2>Latest Post</h2>
-			<img
-				:src="require('@/assets/img/' + getArticleById.img)"
-				alt="interior photo"
-			/>
-			<h3>{{ getArticleById.title }}</h3>
-			<p>{{ getArticleById.text }}</p>
-			<p>{{ getArticleById.date }}</p>
-			<router-link
-				:to="{ name: 'blog-details', query: { id: getArticleById.id } }"
-				>Перейти в статью</router-link
-			>
-		</article>
-		<div class="post-list">
-			<BlogArticle
-				v-for="article in showAtricles"
-				:key="article.id"
-				:article="article"
-			/>
-		</div>
+			:breadcrumbs="['home', 'blog']"
+		></PageBannerBlock>
+		<LatestPostBlock
+			:article="getArticleById"
+			class="center center-lines"
+		/>
+		<ArticleBlock
+			class="center center-lines blog-title-align"
+			:show-articles="showAtricles"
+			:article-title="articleTitle"
+		/>
 		<PaginationComp
 			:currentPath="`/blog`"
 			:pagesOnPage="pagesOnPage"
 			:totalPages="totalPages"
+			class="center center-lines"
 		/>
-	</div>
+		<FooterBlock class="center center-lines" />
+	</main>
 </template>
 
 <script>
-import vBanner from '../blocks/v-banner.vue';
+import PageBannerBlock from '../blocks/PageBannerBlock.vue';
 import { mapGetters, mapActions } from 'vuex';
-import BlogArticle from '../details/BlogArticle.vue';
 import PaginationComp from '../details/PaginationComp.vue';
+import LatestPostBlock from '../blocks/LatestPostBlock.vue';
+import ArticleBlock from '../blocks/ArticleBlock.vue';
+import FooterBlock from '../blocks/FooterBlock.vue';
 
 export default {
 	name: 'BlogPage',
 	components: {
-		BlogArticle,
-		PaginationComp,
-		vBanner,
-	},
+    PaginationComp,
+    PageBannerBlock,
+    LatestPostBlock,
+    ArticleBlock,
+    FooterBlock
+},
 	data() {
 		return {
 			articlesOnPage: 6,
@@ -57,9 +51,19 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['getArticleById', 'articlesLength', 'resultArticlesByPage']),
+		...mapGetters([
+			'getArticleById',
+			'articlesLength',
+			'resultArticlesByPage',
+			'getArticleTitle',
+		]),
 		showAtricles() {
 			return this.resultArticlesByPage;
+		},
+		articleTitle() {
+			const title = {};
+			title.title = this.getArticleTitle.title;
+			return title;
 		},
 	},
 	methods: {
@@ -91,34 +95,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.latest-post {
-	padding: 30px;
-	margin: 30px;
-	border: 1px solid teal;
-	border-radius: 20px;
-}
-
-.post-list {
-	margin: 30px;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 30px;
-}
-
-.pagination {
-	display: flex;
-	justify-content: center;
-	gap: 10px;
-	margin-bottom: 30px;
-}
-
-.btn {
-	width: 30px;
-	border-radius: 50%;
-	border: 1px solid teal;
-	text-decoration: none;
-	background-color: transparent;
-	cursor: pointer;
-	line-height: 30px;
-}
 </style>

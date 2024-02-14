@@ -19,8 +19,6 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-	padding-top: 96px;
-	text-align: center;
 	&-text {
 		color: $titleTxtColor;
 		@include dmSerif(50px, 125%, 1px);
